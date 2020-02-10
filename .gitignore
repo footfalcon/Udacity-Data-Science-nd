@@ -6,3 +6,6 @@ Airbnb.pages
 
 # Project 2:
 resource_templates/
+disaster_categories.csv
+disaster_messages.csv
+DisasterResponse.db
