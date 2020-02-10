@@ -51,6 +51,7 @@ def tokenize(text):
 
         Returns (list): cleaned word tokens of the message
     '''
+    #text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
     tokens = word_tokenize(text.lower())
     tokens = [t for t in tokens if t not in stopwords.words('english')]  
     lemmatizer = WordNetLemmatizer()
