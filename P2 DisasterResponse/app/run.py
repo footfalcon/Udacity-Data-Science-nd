@@ -85,16 +85,16 @@ def get_graphs(df=df):
     # extract data
     # data names
     # plot
-    graph4 = [Bar(x=word_names,  y=word_counts[:30])]
+    '''graph4 = [Bar(x=word_names,  y=word_counts[:30])]
     layout4 = {
         'yaxis': {'title': "Count"},
         'xaxis': {'title': "Word"}
-    }      
+    } '''     
     graphs = []
     graphs.append(dict(data=graph1, layout=layout1))
     graphs.append(dict(data=graph2, layout=layout2))
     graphs.append(dict(data=graph3, layout=layout3))
-    graphs.append(dict(data=graph4, layout=layout4))
+    #graphs.append(dict(data=graph4, layout=layout4))
 
     return graphs
 
