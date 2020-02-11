@@ -1,4 +1,5 @@
 import sys
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pickle
@@ -119,13 +120,43 @@ def evaluate_model(model, X_test, Y_test, category_names):
         Returns (dict): dict of results (and prints results and best model parameters)
     '''
     y_pred = model.predict(X_test)
-    results = classification_report(Y_test, y_pred, target_names=category_names) #, output_dict=True)
-    print(results)
+    #results = classification_report(Y_test, y_pred, target_names=category_names)
+    results = classification_report(Y_test, y_pred, target_names=category_names, output_dict=True)
+    #print(results)
     print()
     print(f"\nBest Parameters: {model.best_params_}")
     #results = pd.DataFrame(results).T
 
-    return None #results
+    return results
+
+
+#* temporary func to inspect/assess results
+'''
+def train_model(database_filepath='../data/DisasterResponse.db'):
+    ''' #This is for while I am testing parameters.... 
+    '''
+    start = time.time()
+    
+    X, y, category_names = load_data(database_filepath)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+    model = build_model()
+    model.fit(X_train, y_train)
+    results = evaluate_model(model, X_test, y_test, category_names)
+    
+    print(f'\nRun time: {(time.time() - start)/60}\n')
+
+    return results, model
+
+res = results.T
+
+def plot_results(first_y='precision', second_y='support', sort_by='support'):
+    # look at results in order of 'support'
+    plt.style.use('ggplot')
+    df = res.iloc[:-4, :].sort_values(by=sort_by, ascending=False)
+    df[first_y].plot(c='royalblue', figsize=(8,5), legend=True)
+    df[second_y].plot.bar(secondary_y=True, legend=True)
+
+'''
 
 
 def save_model(model, model_filepath):
@@ -139,6 +170,8 @@ def save_model(model, model_filepath):
     '''
     with open(model_filepath, 'wb') as f:
         pickle.dump(model, f)
+
+    return None
 
         
 def main():
